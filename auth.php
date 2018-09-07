@@ -15,8 +15,8 @@ ini_set('display_startup_errors', TRUE);
 require_once __DIR__ . '/vendor/autoload.php';
 
 
-$default_bucket = CloudStorageTools::getDefaultGoogleStorageBucketName();
 
+$default_bucket = CloudStorageTools::getDefaultGoogleStorageBucketName();
 define('APPLICATION_NAME', 'Gmail API');
 define('CREDENTIALS_PATH', "gs://${default_bucket}/credentials.json");
 define('CLIENT_SECRET_PATH', "gs://${default_bucket}/secret.json");
@@ -42,7 +42,7 @@ function getClient()
 {
     // app config
     $config = json_decode(file_get_contents(CLIENT_SECRET_PATH), true);
-    
+
     $client = new Google_Client();
     $client->setApplicationName(APPLICATION_NAME);
     $client->setScopes(SCOPES);
@@ -50,11 +50,10 @@ function getClient()
     $client->setAccessType('offline');
 
     // Load previously authorized credentials from a file.
-    $credentialsPath = CREDENTIALS_PATH;
 
 
-    if (file_exists($credentialsPath)) {
-        $accessToken = json_decode(file_get_contents($credentialsPath), true);
+    if (file_exists(CREDENTIALS_PATH)) {
+        $accessToken = json_decode(file_get_contents(CREDENTIALS_PATH), true);
     } else {
         // Request authorization from the user.
         $authUrl = $client->createAuthUrl();
@@ -66,15 +65,15 @@ function getClient()
         $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
 
         // Store the credentials to disk.
-        file_put_contents($credentialsPath, json_encode($accessToken));
-        printf("Credentials saved to %s\n", $credentialsPath);
+        file_put_contents(CREDENTIALS_PATH, json_encode($accessToken));
+        printf("Credentials saved to %s\n", CREDENTIALS_PATH);
     }
     $client->setAccessToken($accessToken);
 
     // Refresh the token if it's expired.
     if ($client->isAccessTokenExpired()) {
         $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
-        file_put_contents($credentialsPath, json_encode($client->getAccessToken()));
+        file_put_contents(CREDENTIALS_PATH, json_encode($client->getAccessToken()));
     }
     return $client;
 }

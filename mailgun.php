@@ -4,19 +4,9 @@
  * @link https://powerkernel.com
  * @copyright Copyright (c) 2018 Power Kernel
  */
-use google\appengine\api\cloud_storage\CloudStorageTools;
-
-if (isset($_GET['type']) && $_GET['type'] == 'test') {
-    $default_bucket = CloudStorageTools::getDefaultGoogleStorageBucketName();
-    var_dump($default_bucket);
-    $cri=file_get_contents("gs://${default_bucket}/credentials.json");
-    var_dump($cri);
-    file_put_contents("gs://${default_bucket}/credentials1.json", "Welcome");
-    $client = getClient();;
-}
 
 if (isset($_GET['type']) && $_GET['type'] == 'mime') {
-    if (isset($_POST['body-mime'])) {
+    if (isset($_POST['body-mime']) || $_GET['body-mime']) {
         require __DIR__ . '/auth.php';
         require __DIR__ . '/import.php';
 
