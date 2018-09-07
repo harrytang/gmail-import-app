@@ -8,8 +8,9 @@ use google\appengine\api\cloud_storage\CloudStorageTools;
 
 if (isset($_GET['type']) && $_GET['type'] == 'test') {
     $default_bucket = CloudStorageTools::getDefaultGoogleStorageBucketName();
+    var_dump($default_bucket);
     $cri=file_get_contents("gs://${default_bucket}/credentials.json");
-    echo $cri;
+    var_dump($cri);
     file_put_contents("gs://${default_bucket}/credentials1.json", "Welcome");
     //$client = getClient();;
 }
