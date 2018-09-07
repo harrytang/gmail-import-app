@@ -4,6 +4,9 @@
  * @link https://powerkernel.com
  * @copyright Copyright (c) 2018 Power Kernel
  */
+# Imports the Google Cloud client library
+
+
 
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
