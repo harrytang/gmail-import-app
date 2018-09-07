@@ -5,7 +5,7 @@
  * @copyright Copyright (c) 2018 Power Kernel
  */
 # Imports the Google Cloud client library
-
+use google\appengine\api\cloud_storage\CloudStorageTools;
 
 
 error_reporting(E_ALL);
@@ -13,8 +13,9 @@ ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
 
 require_once __DIR__ . '/vendor/autoload.php';
-$default_bucket = CloudStorageTools::getDefaultGoogleStorageBucketName();
 
+
+$default_bucket = CloudStorageTools::getDefaultGoogleStorageBucketName();
 
 define('APPLICATION_NAME', 'Gmail API');
 define('CREDENTIALS_PATH', "gs://${default_bucket}/credentials.json");
