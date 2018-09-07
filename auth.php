@@ -10,11 +10,12 @@ ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
 
 require_once __DIR__ . '/vendor/autoload.php';
+$default_bucket = CloudStorageTools::getDefaultGoogleStorageBucketName();
 
 
 define('APPLICATION_NAME', 'Gmail API');
-define('CREDENTIALS_PATH', __DIR__.'/credentials/gmail-import.json');
-define('CLIENT_SECRET_PATH', __DIR__.'/credentials/client_secret.json');
+define('CREDENTIALS_PATH', "gs://${default_bucket}/credentials.json");
+define('CLIENT_SECRET_PATH', "gs://${default_bucket}/secret.json");
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/gmail-php-quickstart.json
 define('SCOPES', implode(' ', [
@@ -42,8 +43,8 @@ function getClient()
     $client->setAccessType('offline');
 
     // Load previously authorized credentials from a file.
-    $default_bucket = CloudStorageTools::getDefaultGoogleStorageBucketName();
-    $credentialsPath = "gs://${default_bucket}/credentials.json";
+    $credentialsPath = CREDENTIALS_PATH;
+
 
     if (file_exists($credentialsPath)) {
         $accessToken = json_decode(file_get_contents($credentialsPath), true);
