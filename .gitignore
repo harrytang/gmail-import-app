@@ -1,0 +1,50 @@
+#hosting
+backend-httpd.access.log
+backend-httpd.error.log
+frontend-httpd.access.log
+frontend-httpd.error.log
+www-httpd.access.log
+www-httpd.error.log
+
+# yii console command
+/yii
+
+# phpstorm project files
+.idea
+
+# netbeans project files
+nbproject
+
+# zend studio for eclipse project files
+.buildpath
+.project
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+
+# composer vendor dir
+/vendor
+
+# composer itself is not needed
+composer.phar
+
+# Mac DS_Store Files
+.DS_Store
+
+# phpunit itself is not needed
+phpunit.phar
+# local phpunit config
+/phpunit.xml
+
+# vagrant runtime
+/.vagrant
+
+# misc
+.ssl
+.data
+.docs
+frontend/web/backend
+composer.lock
+upload.zip
+grunt-email-workflow/Gruntfile.min.js
