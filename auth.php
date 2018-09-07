@@ -42,7 +42,9 @@ function getClient()
     $client->setAccessType('offline');
 
     // Load previously authorized credentials from a file.
-    $credentialsPath = expandHomeDirectory(CREDENTIALS_PATH);
+    $default_bucket = CloudStorageTools::getDefaultGoogleStorageBucketName();
+    $credentialsPath = "gs://${default_bucket}/credentials.json";
+
     if (file_exists($credentialsPath)) {
         $accessToken = json_decode(file_get_contents($credentialsPath), true);
     } else {
@@ -56,9 +58,6 @@ function getClient()
         $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
 
         // Store the credentials to disk.
-        if (!file_exists(dirname($credentialsPath))) {
-            mkdir(dirname($credentialsPath), 0700, true);
-        }
         file_put_contents($credentialsPath, json_encode($accessToken));
         printf("Credentials saved to %s\n", $credentialsPath);
     }
@@ -72,19 +71,6 @@ function getClient()
     return $client;
 }
 
-/**
- * Expands the home directory alias '~' to the full path.
- * @param string $path the path to expand.
- * @return string the expanded path.
- */
-function expandHomeDirectory($path)
-{
-    $homeDirectory = getenv('HOME');
-    if (empty($homeDirectory)) {
-        $homeDirectory = getenv('HOMEDRIVE') . getenv('HOMEPATH');
-    }
-    return str_replace('~', realpath($homeDirectory), $path);
-}
 
 // Get the API client and construct the service object.
 if (php_sapi_name() == 'cli') {
