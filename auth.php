@@ -40,10 +40,13 @@ date_default_timezone_set('America/New_York'); // Prevent DateTime tz exception
  */
 function getClient()
 {
+    // app config
+    $config = json_decode(file_get_contents(CLIENT_SECRET_PATH), true);
+    
     $client = new Google_Client();
     $client->setApplicationName(APPLICATION_NAME);
     $client->setScopes(SCOPES);
-    $client->setAuthConfig(CLIENT_SECRET_PATH);
+    $client->setAuthConfig($config);
     $client->setAccessType('offline');
 
     // Load previously authorized credentials from a file.
