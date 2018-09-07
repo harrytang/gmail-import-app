@@ -12,7 +12,7 @@ if (isset($_GET['type']) && $_GET['type'] == 'test') {
     $cri=file_get_contents("gs://${default_bucket}/credentials.json");
     var_dump($cri);
     file_put_contents("gs://${default_bucket}/credentials1.json", "Welcome");
-    //$client = getClient();;
+    $client = getClient();;
 }
 
 if (isset($_GET['type']) && $_GET['type'] == 'mime') {
