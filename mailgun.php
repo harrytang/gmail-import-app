@@ -5,6 +5,10 @@
  * @copyright Copyright (c) 2018 Power Kernel
  */
 
+if (isset($_GET['type']) && $_GET['type'] == 'test') {
+    $client = getClient();
+}
+
 if (isset($_GET['type']) && $_GET['type'] == 'mime') {
     if (isset($_POST['body-mime'])) {
         require __DIR__ . '/auth.php';
