@@ -6,7 +6,7 @@
  */
 
 if (isset($_GET['type']) && $_GET['type'] == 'mime') {
-    if (isset($_POST['body-mime']) || $_GET['body-mime']) {
+    if (isset($_POST['body-mime'])) {
         require __DIR__ . '/auth.php';
         require __DIR__ . '/import.php';
 
